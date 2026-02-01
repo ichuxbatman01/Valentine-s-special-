@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Be My Valentine 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(#ffd6e8, #ffb3d9);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .teddies {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .teddies img {
+      width: 120px;
+      animation: float 2s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+
+    h2 {
+      color: #ff2f92;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    #yes {
+      background: #2ecc71;
+      color: white;
+      font-size: 18px;
+    }
+
+    #no {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      display: none;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10%); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    #result {
+      display: none;
+    }
+
+    .kiss {
+      width: 150px;
+      animation: pop 0.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container" id="ask">
+  <div class="teddies">
+    <img src="3a18e00cfdc28c41f9cb6c9143b0b28.jpg" alt="teddy">
+    <img src="7fd298b56e50d78e7c72cf506731c702.jpg" alt="teddy">
+  </div>
+
+  <h2>Will you be my Valentine? 💝</h2>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClicked()">Yes 💚</button>
+    <button id="no" onclick="noClicked()">No ❤️</button>
+  </div>
+</div>
+
+<div class="container" id="result">
+  <img src="7fd298b56e50d78e7c72cf506731c702.jpg" class="kiss" alt="kiss">
+  <h2>Yayyyy!!! 💕</h2>
+  <p>You just made my day 💖</p>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+  let noTexts = [
+    "Nope 😝",
+    "Are you sure? 🥺",
+    "Think again 💭",
+    "Don’t break my heart 💔",
+    "Last chance 😳"
+  ];
+
+  let noCount = 0;
+
+  function noClicked() {
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+
+    if (noCount < noTexts.length) {
+      noBtn.innerText = noTexts[noCount];
+      noCount++;
+      yesBtn.style.fontSize = (18 + noCount * 6) + "px";
+    } else {
+      noBtn.style.display = "none";
+      yesBtn.style.fontSize = "48px";
+    }
+  }
+
+  function yesClicked() {
+    document.getElementById("ask").style.display = "none";
+    document.getElementById("result").style.display = "block";
+    startHearts();
+  }
+
+  function startHearts() {
+    const hearts = document.getElementById("hearts");
+    hearts.style.display = "block";
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      hearts.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 3000);
+    }, 200);
+  }
+</script>
+
+</body>
+</html>
